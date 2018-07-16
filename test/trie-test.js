@@ -1,10 +1,9 @@
 import { expect } from 'chai';
 import Trie from '../lib/Trie';
-import Node from '../lib/Node';
 import fs from 'fs';
+require('locus')
 
 var trie = new Trie();
-require('locus')
 
 describe('TRIE', () => {
   it('should exist', () => {
@@ -12,7 +11,6 @@ describe('TRIE', () => {
   });
 
   it('should be able to take in a word', () => {
-    // eval(locus)
     trie.insert("hello");
     trie.count();
     expect(trie.wordCount).to.equal(1)
@@ -25,7 +23,6 @@ describe('TRIE', () => {
     trie.count();
     expect(trie.wordCount).to.equal(3)
 
-    // console.log(JSON.stringify(trie, null, 4))
   });
 
   it('should have a suggest method', () => {
@@ -37,28 +34,15 @@ describe('TRIE', () => {
     trie.insert("crazy");
     trie.insert("candy");
 
-    let autoFill = trie.suggest('clam')
-
-    expect(autoFill).to.deep.equal([])
+    expect(trie.suggest('clam')).to.deep.equal([])
     
-    // trie.suggest('he');
-    // => ['hello']
-    
-    // trie.insert("hellen");
-    
-    // trie.suggest("he");
-    // => ["hello", "hellen"]
-    
-    // prefixTrie.suggest('w');
-    // => ["world"]
-  })
+  });
   
   it('should return an array of all the words containing the prefix', () => {
     
     expect(trie.suggest('he')).to.deep.equal(['hello'])
     expect(trie.suggest('c')).to.deep.equal(['cat', 'candy', 'crazy'])
-    expect(trie.suggest('he')).to.deep.equal(['hello'])
-    // eval(locus)
+    expect(trie.suggest('ca')).to.deep.equal(['cat', 'candy'])
   });
   
   it('should have a populate method', () => {
@@ -71,9 +55,11 @@ describe('TRIE', () => {
     
     trie.populate(dictionary)
     expect(trie.count()).to.equal(234361)
-    expect(trie.suggest('worldf')).to.deep.equal(['worldful'])
-    // console.log(JSON.stringify(trie, null, 4))
-  })
-  
-
+    expect(trie.suggest('world')).to.deep.equal([ 'worlded', 'worldful', 'worldish', 'worldless', 'worldlet', 'worldlike', 'worldlily', 'worldliness', 'worldling', 'worldly', 'worldmaker', 'worldmaking', 'worldproof', 'worldquake', 'worldward', 'worldwards', 'worldway', 'worldy']);
+    expect(trie.suggest('colore')).to.deep.equal(['colorectitis', 'colorectostomy', 'colored', 'colorer']);
+    
+  });
 });
+
+// eval(locus)
+// console.log(JSON.stringify(trie, null, 4))
