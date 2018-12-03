@@ -56,7 +56,7 @@ describe('TRIE', () => {
 
     trie.populate(dictionary);
 
-    expect(trie.count()).to.equal(234361);
+    expect(trie.wordCount).to.equal(234361);
     expect(trie.suggest('world')).to.deep.equal([
       'worlded',
       'worldful',
